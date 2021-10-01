@@ -166,7 +166,7 @@
 <!-- select -->
 <div class="fancy-form fancy-form-select">
 
-	<select class="form-control" id="building-type" onchange=showHideOptions() onchange=cagesNeeded()>
+	<select class="form-control" id="building-type" onchange=showHideOptions() onchange=cagesNeeded() oninput=clearFields()>
 		<option id="select-building" value="select-building">--- Select Building Type ---</option>
 		<option id="residential" value="1">Residential</option>
 		<option id="commercial" value="2">Commercial</option>
@@ -178,39 +178,39 @@
 <!-- stepper -->
 <div id="number-of-apartments" style="display:none">
     <label>How many apartments in the building?</label>
-    <input id="inpNumApt" type="text" value="0" min="0" max="10000" class="form-control stepper" oninput=cagesNeeded() onchange=cagesNeeded()><br>
+    <input id="inpNumApt" type="text" value="0" min="0" max="10000" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-floors" style="display:none">
     <label>How many floors in the building (excluding basements)?</label>
-    <input id="inpNumFloors" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper" oninput=cagesNeeded() onchange=cagesNeeded()><br>
+    <input id="inpNumFloors" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-basements" style="display:none">
     <label>How many basements are in the building?</label>
-    <input id="inpNumBase" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper"><br>
+    <input id="inpNumBase" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-companies" style="display:none">
     <label>How many businesses need our services?</label>
-    <input id="inpNumComp" type="text" name="num" pattern="[0-9]" value="0" min="0" max="1000" class="form-control stepper"><br>
+    <input id="inpNumComp" type="text" name="num" pattern="[0-9]" value="0" min="0" max="1000" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-elevators" style="display:none">
     <label>How many elevator cages are needed?</label>
-    <input id="inpCageAmnt" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper" oninput=cagesNeeded() onchange=cagesNeeded()><br>
+    <input id="inpCageAmnt" type="text" name="num" pattern="[0-9]" value="0" min="0" max="100" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-corporations" style="display:none">
     <label>How many Tenent companies are their?</label>
-    <input id="inpNumCorp" type="text" name="num" pattern="[0-9]" value="0" min="0" max="1000" class="form-control stepper"><br>
+    <input id="inpNumCorp" type="text" name="num" pattern="[0-9]" value="0" min="0" max="1000" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="number-of-parking-spots" style="display:none">
     <label>How many parking spaces are available?</label>
-    <input id="inpNumParking" type="text" name="num" pattern="[0-9]" value="0" min="0" max="10000" class="form-control stepper"><br>
+    <input id="inpNumParking" type="text" name="num" pattern="[0-9]" value="0" min="0" max="10000" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="maximum-occupancy" style="display:none">
     <label>What is the maximum amount of occupants per floor?</label>
-    <input id="inpMaxOccu" type="text" name="num" pattern="[0-9]" value="0" min="0" max="10000" class="form-control stepper"><br>
+    <input id="inpMaxOccu" type="text" name="num" pattern="[0-9]" value="0" min="0" max="10000" class="form-control stepper" onchange=cagesNeeded()><br>
 </div>
 <div id="business-hours" style="display:none">
     <label>What is the number of hours of activity in the building?</label>
-    <input id="inpBussHours" type="text" name="num" pattern="[0-9]" value="0" min="0" max="24" class="form-control stepper"><br><br>
+    <input id="inpBussHours" type="text" name="num" pattern="[0-9]" value="0" min="0" max="24" class="form-control stepper" onchange=cagesNeeded()><br><br>
 </div>
 
 
@@ -264,7 +264,7 @@
     </label>
 	</div><br/>
 
-	<button>Request Quote</button><br/><br/>
+	<button style="display:none">Request Quote</button><br/><br/>
    
 
 			</section>

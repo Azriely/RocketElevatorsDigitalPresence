@@ -41,13 +41,16 @@
     var exeliumFee = .16;
 
     //residential
-    var res1 = numApt.value / numFloors.value; 
-    var res2 = Math.round(res1 / 6);
+    const floorPerColumn = 20;
+    const aptsPerShaft = 6;
+    let amntShaft = 0;
+    let avgDPF = 0;
+    let column = 0;
 
     //commercial / hybrid
-    var totalNumOccu = maxOccu * numFloors;
+    var totalNumOccu = maxOccu.value * numFloors.value;
     var elvsNeeded = totalNumOccu / 1000;
-    var columnsNeeded = numFloors + numBase;
+    var columnsNeeded = numFloors.value + numBase.value;
     var finalColumnsNeeded = columnsNeeded / 20;
     var elvsPerColumn = elvsNeeded / finalColumnsNeeded;
     var totalElvsNeeded = elvsPerColumn * finalColumnsNeeded;
@@ -107,10 +110,22 @@
             Qfive.style.display = 'none';
             Qsix.style.display = 'none';
         }
+
+        else if (BType.value == "select-building") {
+            Qtwo.style.display = 'none';
+            Qfour.style.display = 'none';
+            Qthree.style.display = 'none';
+            Qseven.style.display = 'none';
+            Qnine.style.display = 'none';
+            Qeight.style.display = 'none';
+            Qone.style.display = 'none';
+            Qfive.style.display = 'none';
+            Qsix.style.display = 'none';
+        }
     }
 
 
-    /**Residential elevator shafts needed */
+    /**Plan Selector */
 	function planSelect() {
 
         if (stnd.checked == true) {
@@ -129,6 +144,7 @@
         totalPrice()
         installationFee()
         finalPrice ()
+        cagesNeeded()
 
        formatAll ()
 	}
@@ -137,28 +153,34 @@
     function cagesNeeded() {
 
         //residential
-        res1 = numApt.value / numFloors.value; 
-        res2 = Math.round(res1 / 6); 
+        avgDPF = numApt.value / numFloors.value; 
+        var resElvs = Math.ceil(Math.ceil(avgDPF) / 6);
+        var Shafts = Math.ceil(parseInt(numFloors.value) / 20); 
+        var resFinal = resElvs * Shafts;
 
         //corporate/hybrid
-        totalNumOccu = maxOccu * numFloors;
+        totalNumOccu = Number(maxOccu.value) * Number(numFloors.value);
         elvsNeeded = totalNumOccu / 1000;
-        columnsNeeded = numFloors + numBase;
-        finalColumnsNeeded = columnsNeeded / 20;
-        elvsPerColumn = elvsNeeded / finalColumnsNeeded;
+        columnsNeeded = Number(numFloors.value) + Number(numBase.value);
+        console.log("columns needed:", columnsNeeded, "floors",numFloors.value, "Basements", numBase.value)
+        finalColumnsNeeded = Math.round(columnsNeeded / 20);
+        console.log("final columns num:", finalColumnsNeeded)
+        elvsPerColumn = Math.ceil(elvsNeeded / finalColumnsNeeded);
+        console.log("elvs / columns", elvsPerColumn)
         totalElvsNeeded = elvsPerColumn * finalColumnsNeeded;
 
         //Amount of Elevators needed
-        //commercial
-        if (BType.value == 2) {
-            elvAmnt.value = cge.value;
-            console.log(elvAmnt.value);
-        }
         //residential
-        else if (BType.value == 1) {
-            elvAmnt.value = res2;
+        if (BType.value == 1) {
+            elvAmnt.value = resFinal;
+            
             console.log("res elvAmnt:", elvAmnt.value);
         } 
+        //commercial
+        else if (BType.value == 2) {
+            elvAmnt.value = cge.value;
+        }
+
         //corporate / hybrid
         else if (BType.value == 3 || 4) {
             elvAmnt.value = Math.round(totalElvsNeeded);
@@ -180,18 +202,19 @@
         standardFee;
         premiumFee;
         exeliumFee
-        
-        if (BType.value == 1) {
+
+        //residential
+        if (stnd.checked == true) {
             fee = (standardFee * Number(elvTotalPrice.value));
             console.log ("fee vairables:", fee);
         }
-        //residential
-        else if (BType.value == 2) {
-            fee = (premiumFee * elvTotalPrice.value);
+        //commercial
+        else if (prem.checked == true) {
+            fee = (premiumFee * Number(elvTotalPrice.value));
         } 
         //corporate / hybrid
-        else if (BType.value == 3) {
-            fee = (exeliumFee * elvTotalPrice.value);
+        else if (exel.checked == true) {
+            fee = (exeliumFee * Number(elvTotalPrice.value));
         }
         elvinstallFee.value = fee;
         console.log("fee's are:" , fee);
@@ -213,5 +236,25 @@
         elvPrice.value = formatter.format(elvPrice.value);
         elvinstallFee.value = formatter.format(elvinstallFee.value);
         elvfinalPrice.value = formatter.format(elvfinalPrice.value);
+    }
+
+    function clearFields() {
+        elvAmnt.value = "0"
+        elvTotalPrice.value = "$0"
+        elvPrice.value = "$0"
+        elvinstallFee.value = "$0"
+        elvfinalPrice.value = "$0"
+        numApt.value = "0"
+        numFloors.value = "0"
+        numBase.value = "0"
+        numComp.value = "0"
+        cge.value = "0"
+        numCorp.value = "0"
+        numParking.value = "0"
+        maxOccu.value= "0"
+        bussHours.value = "0"
+        stnd.checked = false;
+        prem.checked = false;
+        exel.checked = false;
     }
     
